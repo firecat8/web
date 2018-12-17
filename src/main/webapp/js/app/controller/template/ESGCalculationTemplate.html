@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <div class="calcWindow">
+            <table class="esgResultTable">
+                <tr class="esgRatings"> 
+                    <td>
+                        <label>ESG Rating:</label>
+                        <label id="esgRating"></label>
+                        <label>Controversy:</label>
+                        <label id="controversy"></label>
+                    </td>
+                    <td rowspan="4">
+                        <div id="gridbox" class="esgFactorsTable"></div>
+                        <div class="pager"><span id="pagingArea"></span></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="esgLabel">Environment:</label>
+                        <label id="e" class="esg"></label>
+                        <label class="esgLabel">Social:</label>
+                        <label id="s" class="esg"></label>
+                        <label class="esgLabel">Governance:</label>
+                        <label id="g"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="exportESGBtnHolder">
+                        <input id ="exportESGBtn" class="exportESGButton" type="button" value="Export in ESG_Results.xls"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="zeroPaddingTop">
+                        <div id="chartbox"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form name="results" id="results" method="post" action="exportEsgResults" accept-charset="UTF-8">
+            <input type="hidden" id="esgResult" name="esgResult"  value=''/>
+            <input type="hidden" id="mfSeriesName" name="seriesName"  value=''/>
+        </form>
+    </body>
+</html>

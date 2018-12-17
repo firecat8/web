@@ -1,0 +1,55 @@
+/*
+EuroRisk Systems (c) Ltd. All rights reserved.
+*/
+/* 
+    Created on : Jul 31, 2018, 10:28:08 AM
+    Author     : gdimitrova
+*/
+
+div#predictConfigDiv, div#datesInterval{
+    width: 450px;
+}
+div.predictWindow{
+    padding: 15px;
+    height: 100%;
+    margin: 0px;
+}
+div#predictConfigDiv,div#predictConfig, div#fileName, 
+div.seriesCharts, div#intervalConfig, div#datesInterval{
+    display: block;
+    float:left;
+}
+div#fileName{
+    height: 24px;
+}
+div#predictConfigDiv, div#datesInterval{
+    margin: 5px;
+}
+div#predictBtn, div#exportBtn{
+    margin: 8px;
+    margin-top: 10px;
+    display: block;
+    clear:both;
+}
+div.seriesCharts{
+    width:610px;
+    height:400px;
+    border:1px solid #c0c0c0;
+    margin: 6px;
+}
+#frequencies, #historicalPredictionStep, input#predictStep{
+    width:180px;
+}
+.predictionCfgTable td {
+    padding: 6px;
+    vertical-align: top;
+}
+.predictionCfgTable {
+    width: 100%;
+}
+#date_from, #date_to{
+    width: 100px;
+    padding-left: 5px;
+    margin-left: 5px;
+    margin-right: 10px;
+}

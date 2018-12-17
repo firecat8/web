@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+
+    <body>
+        <div class="predictWindow" >
+            <table>
+                <tr>
+                    <td>
+                        <div id="predictConfigDiv">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="predictBtn">
+                            <input id ="predictButton" class="commandButton" type="button" value="Predict"/>
+                            <input id ="exportButton" class="commandButton" type="button" value="Export Results"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="datesInterval">
+                            
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <a href='#' title='results' id="exportLink">results.xls</a><br/><br/>
+            <form name="results" id="results" method="post" action="exportPredictResults" accept-charset="UTF-8">
+                <input type="hidden" id="seriesID" name="seriesID"  value=''/>
+                <input type="hidden" id="evalID" name="evalID"  value=''/>
+            </form>
+        </div>
+
+    </body>
+</html>

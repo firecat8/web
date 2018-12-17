@@ -1,0 +1,312 @@
+/* 
+    Created on : Jul 20, 2018, 3:52:18 PM
+    Author     : gdimitrova
+*/
+
+body *{
+    font-family: Tahoma,Helvetica;
+}
+.header {
+    background:  #C7E2F5; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(rgba(129,167,203,1),rgba(199,226,245,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(129,167,203,1),rgba(199,226,245,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(129,167,203,1),rgba(199,226,245,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(129,167,203,1),rgba(199,226,245,1)); /* Standard syntax */
+}
+#header-logo {
+    height: 52px;
+    margin-left: 5px;
+}
+.invalidCredentials {
+    color : red;
+    font-weight: bold;
+}
+.re-loading-spinner-background {
+    position: fixed;
+    z-index: 500;
+    background: rgba(0, 0, 0, 0.4);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.re-loading-spinner-background img {
+    position: fixed;
+    top: 45%;
+    left: 45%;
+    width: 50px;
+    height: 50px;
+    padding: 3px;
+    background: #fff;
+    border-radius:100%;
+}
+
+.chart-icon img {
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+}
+.hidden{
+    display: none !important;
+}
+.chart-icon{
+    display: inline-block;
+}
+.clear{
+    clear:both;
+}
+/*
+  The next css are connected with our menu with JS library DHTMLX and its css
+*/
+.menu div.align_left,.menu div#openWindowsDiv{
+    background-color: #ffffff;
+}
+div.dhtmlxMenu_dhx_web_TopLevel_Item_Normal{
+    background-color: #c7e2f5;
+    color: #000;
+}
+div.dhtmlxMenu_dhx_web_TopLevel_Item_Selected:hover,.menu div#openWindowsDiv:hover{
+    background-color: #81a7cb;
+    color: #fff;
+}
+div.dhtmlxMenu_dhx_web_TopLevel_Item_Normal, div.dhtmlxMenu_dhx_web_TopLevel_Item_Selected,.menu div#openWindowsDiv > div.dhxcombo_dhx_web {
+    height: 24px;
+    border:1px;
+    border-color: #000;
+    border-style: solid;
+    box-shadow: 1px 1px 1px 1px #81a7cb;
+}
+.top_level_text{
+    height: 25px;
+    text-align: center;
+    font-size: 15px;
+}
+div.dhtmlxMenu_dhx_web_Middle{
+    height: 30px;
+}
+.inline {
+    display: inline;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+/*
+  Windows' div
+*/
+div#winVP {
+    position: relative;
+    height: 90%;
+    margin: 10px;
+}
+.labelTd{
+    padding: 5px; 
+    text-align: right;
+}
+
+.comboAutocomplete{
+    width:180px;
+}
+.readOnlyInput{
+    padding: 0px !important;
+    height: 24px;
+}
+.mfAutocomplete,.readOnlyInput{
+    width:160px;
+    display: inline-block;
+}
+
+.loadButton{
+    width:180px; 
+    height: 25px;
+}
+
+.commandButton{
+    width:120px; 
+    height: 25px;
+}
+
+.commandESGButton{
+    width:150px; 
+    height: 25px;
+}
+
+#chart_container{
+    width:600px;
+    height:400px;
+    border:1px solid #c0c0c0;
+}
+
+.esg_small_chart{
+    width:570px;
+    height:400px;
+    border:1px solid #c0c0c0;
+}
+
+.seeSeriesTable{
+    padding: 15px;
+}
+
+#gridbox{
+    width:540px;
+    height:380px;
+    margin-left: 30px;
+}
+
+.esgTable{
+    width:1800px !important;
+    margin-left: 0px !important;
+}
+
+.pager{
+    width:600px;
+    margin-left: 30px;
+}
+
+.dhtmlx-errorMsg{
+    font-size: 16 !important;
+    font-weight:bold !important;
+    color:red !important;
+    background-color:pink !important;
+    width: 320px;
+    text-align: center;
+}
+
+.dhtmlx-successMsg{
+    font-size: 16 !important;
+    font-weight:bold !important;
+    color:green !important;
+    background-color:lightgreen !important;
+    width: 320px;
+    text-align: center;
+}
+
+.dhtmlx_message_area{
+    left:50%;
+    margin-left:-125px;
+}
+#form-holder {
+    padding: 25px;
+}
+
+label.main, pre.main{
+    font-size: 15px;
+}
+label.info{
+    font-size: 13px;
+    padding-right: 6px;
+}
+input.years,input.months, input.days{
+    width: 3em !important;
+    text-align: center;
+    background-color: #F2F7FB;
+}
+fieldset {
+    margin: 0px;
+    clear: both;
+}
+
+.configTable td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+.scroll{
+    overflow: scroll;
+}
+
+.middleVAlign{
+    vertical-align: middle !important;
+}
+#exportLink{
+    display:none;
+}
+
+.esgRatings label{
+    padding-left: 25px;
+    font-weight: bold;
+    font-size:110%;
+}
+
+.esg{
+    padding-right: 1px;
+}
+
+.esgLabel{
+    padding-left: 22px;
+}
+
+.exportESGBtnHolder{
+    padding: 10px;
+    vertical-align: middle;
+    height: 50px;
+}
+.esgResultTable td:not(.exportESGBtnHolder) {
+    padding: 10px;
+    padding-top: 30px;
+    vertical-align: middle;
+    height: 50px;
+}
+
+.esgFactorsTable{
+    width:750px !important;
+    height:400px !important;
+}
+
+.zeroPaddingTop{
+    padding-top: 0px !important;
+}
+
+div.calcWindow{
+    padding: 2px;
+    height: 100%;
+    margin: 0px;
+}
+.exportESGButton{
+    margin-left: 22px;
+}
+#chartbox{
+    width:450px;
+    height:300px;
+}
+#openWindowsDiv {
+    margin: 0 3px;
+    position: relative;
+    float: left;
+    cursor: default;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    line-height: 22px;
+    vertical-align: middle;
+    margin: 2px 2px 0 0;
+}
+
+#openWindowsDiv > div.dhxcombo_dhx_web ,#openWindowsDiv > div.dhxcombo_dhx_web > input{
+    color: #000;
+    background-color: #c7e2f5;
+    text-align: left;
+    font-size: 15px;
+    font-family: Tahoma,Helvetica;
+}
+.dhxform_obj_dhx_web .dhx_file_uploader.dhx_file_uploader_title div.dhx_upload_controls div.dhx_file_uploader_button.button_info{
+    padding-top: 0px !important;
+    left: 0px !important;
+    width: 80% !important;
+}
+.dhxform_obj_dhx_web .dhx_file_uploader.dhx_file_uploader_title div.dhx_upload_controls div.dhx_file_uploader_button.button_browse{
+    right: 0px !important;
+}
+#uploadForm{
+    width: inherit !important;
+}
+.dhxform_obj_dhx_web fieldset.dhxform_fs{
+    padding: 0px !important;
+}
+.tr-line td{
+    height: 1px;
+    border: 1px #fff;
+    padding: 8px !important;
+}
