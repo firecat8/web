@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# Folders, IDE files
+target/
+*.project
+.project
+.idea/
+.settings/
+*.iml
+.classpat
+nb-configuration.xml
+nbactions.xml
+nbproject/
