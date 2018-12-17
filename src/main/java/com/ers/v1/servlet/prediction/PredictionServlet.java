@@ -64,7 +64,7 @@ public class PredictionServlet extends HttpServlet {
                             request.getInputStream())).getAsJsonObject();
 
             if (inputJsonObj.get("mfId") == null || inputJsonObj.get("mfId").getAsString().equals("")) {
-                response.sendError(400, "Please choose Series's name.");
+                response.sendError(400, "Please upload Excel file.");
                 return;
             }
             String mfId = inputJsonObj.get("mfId").getAsString();

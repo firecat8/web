@@ -67,22 +67,17 @@ public class QuotesUploaderServlet extends HttpServlet {
                 return;
             }
             seriesAdapter.saveSeries(mfName, reader.getContents());
-
-            String mfId = SeriesAdapter.MARKET_FACTORS.get(mfName + "INEA");
-            LOGGER.log(Level.INFO, "Market Factor ID: {0}", mfId);
-            if (mfId == null) {
+            InstrumentMarketFactorVo marketFactorVo = seriesAdapter.getMarketFactorVo();
+            LOGGER.log(Level.INFO, "Market Factor ID: {0}", marketFactorVo.getId());
+            if (marketFactorVo.getId() == null) {
                 sendResponse(response, inputJsonObj, file, Boolean.FALSE, "Quotes not found !");
                 return;
             }
-            //no matter which calculation adapter to use for getting of market factor
-            PredictionAdapter predictionAdapter = new PredictionAdapter();
-            predictionAdapter.getMarketFactor(mfId);
-            InstrumentMarketFactorVo marketFactorVo = predictionAdapter.getMarketFactorVo();
 
             HttpSession session = request.getSession();
             session.setAttribute(marketFactorVo.getId(), new MarketFactorInfoHolder(filename, marketFactorVo, reader.getContents()));
 
-            sendResponse(response, inputJsonObj, file, Boolean.TRUE, makeSuccessJsonObject(mfId, mfName));
+            sendResponse(response, inputJsonObj, file, Boolean.TRUE, makeSuccessJsonObject(marketFactorVo.getId(), mfName));
         } catch (InterruptedException ex) {
             Logger.getLogger(QuotesUploaderServlet.class.getName()).log(Level.SEVERE, null, ex);
             inputJsonObj.addProperty("state", Boolean.FALSE);

@@ -10,22 +10,18 @@ define([
         function ($, ajaxModule, template, factorsSelector, frequencySelector, tenorComponent, windowManager, mfSelector) {
             var component = {};
 
-            var deleteSeries = function (mfId, onEvent) {
+            var deleteSeries = function (mfId) {
                 if (mfId && mfId !== '') {
                     ajaxModule.POST(
                             "deleteSeries",
                             mfId,
                             function (msg) {
                                 console.log(msg);
-                                onEvent();
                             },
                             function (error) {
                                 console.log("Error with series deletion." + mfId);
-                                onEvent();
                             }
                     );
-                } else {
-                    onEvent();
                 }
             };
 
@@ -114,21 +110,16 @@ define([
                     });
                     uploadForm.attachEvent("onUploadFile", function (file, file2, extra) {
                         dhtmlx.message({type: "successMsg", text: "Successfully uploaded serie!", expire: 5000});
-                        var prevMfId = predictConfig.mfId;
-                        deleteSeries(
-                                prevMfId,
-                                function () {
-                                    $('.re-loading-spinner-background').hide();
-                                    console.log("Name:  " + extra.mfName);
-                                    console.log("ID:  " + extra.mfId);
-                                    predictConfig.mfId = extra.mfId;
-                                    fileName = file;
-                                    $(fileNameInput).val(file);
-                                    $(chartIcon).removeClass("hidden");
-                                    if (uploadListener)
-                                        uploadListener();
-                                }
-                        );
+                        deleteSeries(predictConfig.mfId);
+                        $('.re-loading-spinner-background').hide();
+                        console.log("Name:  " + extra.mfName);
+                        console.log("ID:  " + extra.mfId);
+                        predictConfig.mfId = extra.mfId;
+                        fileName = file;
+                        $(fileNameInput).val(file);
+                        $(chartIcon).removeClass("hidden");
+                        if (uploadListener)
+                            uploadListener();
                     });
 
                     uploadForm.attachEvent("onUploadFail", function (file, extra) {

@@ -76,7 +76,7 @@ define([
         }
     };
     var deleteSeries = function (mfId) {
-        if (mfId && mfId !== '')
+        if (mfId && mfId !== '') {
             ajaxModule.POST(
                     "deleteSeries",
                     mfId,
@@ -87,6 +87,7 @@ define([
                         console.log("Error with series deletion.");
                     }
             );
+        }
     };
 
     var createSerieChart = function (chartDom, valueName, valueColor, result, values, yAxis) {
@@ -190,7 +191,7 @@ define([
         );
         predictConfigController.addOnUploadListener(
                 function () {
-                    $(chartDom).empty();
+                    myLayout.cells("b").detachObject();
                     $(datesInterval).hide();
                     $("#exportButton", activeWindow).hide();
                 }

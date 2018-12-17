@@ -28,11 +28,7 @@ public abstract class CalculationAdapter extends Adapter {
 
     protected EvaluationIdVo evalId = null;
     protected ServiceStatusVo status = new ServiceStatusVo();
-    protected InstrumentMarketFactorVo marketFactorVo = null;
 
-    public InstrumentMarketFactorVo getMarketFactorVo() {
-        return marketFactorVo;
-    }
 
     public StateVo getState() {
         return status.getState();

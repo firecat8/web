@@ -113,10 +113,10 @@ public class SeriesAdapter extends Adapter {
 
     public void saveSeries(String marketFactorName, Map<Calendar, Double> series) throws InterruptedException {
         errors.clear();
-        InstrumentMarketFactorVo mf = makeInstrumentMarketFactorVo(marketFactorName);
-        saveMarketFactor(mf);
+        marketFactorVo = makeInstrumentMarketFactorVo(marketFactorName);
+        saveMarketFactor(marketFactorVo);
         getBatchSize();
-        saveQuotes(series, mf.getId());
+        saveQuotes(series, marketFactorVo.getId());
         if (!errors.isEmpty()) {
             errors.forEach((error) -> {
                 LOGGER.severe(error.getErrors().toString());
