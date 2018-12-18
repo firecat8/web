@@ -18,10 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.ers.v1.adapter.EsgAdapter;
 import com.ers.v1.converter.FactorsSelectionCfgConverter;
 import com.ers.v1.converter.SeriesAdapterVoConverter;
+import com.ers.v1.entities.MarketFactorInfoHolder;
 import com.ers.v1.servlet.prediction.PredictionServlet;
 import com.ers.v1.servlet.ServletHelper;
 import com.ers.v1.utils.ConverterUtils;
 import com.eurorisksystems.riskengine.ws.v1_1.vo.instrument.MfiTermsWrapperVo;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,12 +48,15 @@ public class LoadFactorsServlet extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8;");
             PrintWriter writer = response.getWriter();
             ServletHelper servletHelper = new ServletHelper();
-            FactorsSelectionConfig cfg = FactorsSelectionCfgConverter.INSTANCE.toObject(ConverterUtils.INSTANCE.convertToString(request.getInputStream()));
+            String stream = ConverterUtils.INSTANCE.convertToStringFromOneReadLine(request.getInputStream());
+            FactorsSelectionConfig cfg = FactorsSelectionCfgConverter.INSTANCE.toObject(stream);
             if (cfg.getSeriesName().equals("")) {
-                response.sendError(400, "Please choose Series's name.");
+                response.sendError(400, "Please upload Excel file with serie.");
                 return;
             }
-            adapter.loadFactors(cfg);
+            HttpSession session = request.getSession();
+            MarketFactorInfoHolder holder = (MarketFactorInfoHolder) session.getAttribute(cfg.getSeriesId());
+            adapter.loadFactors(cfg, holder.getMarketFactorVo(), true);
             if (servletHelper.checkErrors(adapter, response)) {
                 return;
             }

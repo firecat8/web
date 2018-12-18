@@ -4,18 +4,37 @@
         <legend>Factors selection configuration:</legend>
         <table class="predictionCfgTable">
             <tr>
-                <td>
-					<label class="main">Select Serie's name </label> 
-                </td>
-                <td>
-					<div class="mfSelector"></div>
+                <td colspan="3">
+                    <div id="uploadForm"></div>
                 </td>
             </tr>
-			<tr>
+            <tr>
+                <td>
+                    <label class="main">Uploaded file name</label>
+                </td>
+                <td>
+                    <div id="fileName">
+                        <input id ="fileNameInput" class="readOnlyInput" type="text" readonly/>
+                    </div>
+                </td>
+                <td>
+                    <div class="chart-icon hidden">
+                        <img 
+                            src="css/img/chart.png"
+                            alt="Chart is missing" />
+                    </div>
+                </td>
+            </tr>
+            <tr class="tr-line">
+                <td colspan="3">
+
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <label class="main">Historical interval</label>
                 </td>
-                <td>
+               <td colspan="2">
                     <div id="historicalInterval">
                     </div>
                 </td>
@@ -24,7 +43,7 @@
                 <td>
                     <label class="main">Frequency</label>
                 </td>
-                <td>
+               <td colspan="2">
                     <div id="frequency" class="comboAutocomplete">
                     </div>
                 </td>
@@ -33,7 +52,7 @@
                 <td>
                     <label class="main">Suggestion method</label>
                 </td>
-                <td>
+                <td colspan="2">
                     <div id="suggestionMethod" class="comboAutocomplete">
                     </div>
                 </td>
@@ -42,17 +61,17 @@
                 <td>
                     <label class="main">Maximal number of factors</label>
                 </td>
-                <td>
+                <td colspan="2">
                     <div>
                         <input id ="maximalNumberInput" type="number" class="comboAutocomplete"/>
                     </div>
                 </td>
             </tr>
-			<tr>
+            <tr>
                 <td>
                     <label class="main">Minimal quality</label>
                 </td>
-                <td>
+                <td colspan="2">
                     <div>
                         <input id ="minimalQualityInput" type="number" class="comboAutocomplete"/>
                     </div>

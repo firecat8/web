@@ -14,81 +14,90 @@ import com.eurorisksystems.riskengine.ws.v1_1.vo.portfolio.evaluation.Evaluation
  */
 public class FactorsSelectionConfig {
 
-	private String seriesName;
-	private TenorVo historicalInterval;
-	private FrequencyVo frequency;
-	private FactorSelectorVo suggestionMethod;
-	private int maxSuggestions;
-	private double minimalQuality;
-	private EvaluationIdVo evaluationIdVo;
+    private String seriesId;
+    private String seriesName;
+    private TenorVo historicalInterval;
+    private FrequencyVo frequency;
+    private FactorSelectorVo suggestionMethod;
+    private int maxSuggestions;
+    private double minimalQuality;
+    private EvaluationIdVo evaluationIdVo;
 
-	public FactorsSelectionConfig() {
-	}
+    public FactorsSelectionConfig() {
+    }
 
-	public FactorsSelectionConfig(String seriesName, TenorVo historicalInterval, FrequencyVo frequency, FactorSelectorVo suggestionMethod, int maxSuggestions, double minimalQuality, EvaluationIdVo evaluationIdVo) {
-		this.seriesName = seriesName;
-		this.historicalInterval = historicalInterval;
-		this.frequency = frequency;
-		this.suggestionMethod = suggestionMethod;
-		this.maxSuggestions = maxSuggestions;
-		this.minimalQuality = minimalQuality;
-		this.evaluationIdVo = evaluationIdVo;
-	}
+    public FactorsSelectionConfig(String seriesId,String seriesName, TenorVo historicalInterval, FrequencyVo frequency, FactorSelectorVo suggestionMethod, int maxSuggestions, double minimalQuality, EvaluationIdVo evaluationIdVo) {
+        this.seriesId = seriesId;
+        this.seriesName = seriesName;
+        this.historicalInterval = historicalInterval;
+        this.frequency = frequency;
+        this.suggestionMethod = suggestionMethod;
+        this.maxSuggestions = maxSuggestions;
+        this.minimalQuality = minimalQuality;
+        this.evaluationIdVo = evaluationIdVo;
+    }
 
+    public String getSeriesId() {
+        return seriesId;
+    }
 
-	public String getSeriesName() {
-		return seriesName;
-	}
+    public void setSeriesId(String seriesId) {
+        this.seriesId = seriesId;
+    }
 
-	public void setSeriesName(String seriesName) {
-		this.seriesName = seriesName;
-	}
+    public String getSeriesName() {
+        return seriesName;
+    }
 
-	public TenorVo getHistoricalInterval() {
-		return historicalInterval;
-	}
+    public void setSeriesName(String seriesName) {
+        this.seriesName = seriesName;
+    }
 
-	public void setHistoricalInterval(TenorVo historicalInterval) {
-		this.historicalInterval = historicalInterval;
-	}
+    public TenorVo getHistoricalInterval() {
+        return historicalInterval;
+    }
 
-	public FrequencyVo getFrequency() {
-		return frequency;
-	}
+    public void setHistoricalInterval(TenorVo historicalInterval) {
+        this.historicalInterval = historicalInterval;
+    }
 
-	public void setFrequency(FrequencyVo frequency) {
-		this.frequency = frequency;
-	}
+    public FrequencyVo getFrequency() {
+        return frequency;
+    }
 
-	public FactorSelectorVo getSuggestionMethod() {
-		return suggestionMethod;
-	}
+    public void setFrequency(FrequencyVo frequency) {
+        this.frequency = frequency;
+    }
 
-	public void setSuggestionMethod(FactorSelectorVo suggestionMethod) {
-		this.suggestionMethod = suggestionMethod;
-	}
+    public FactorSelectorVo getSuggestionMethod() {
+        return suggestionMethod;
+    }
 
-	public int getMaxSuggestions() {
-		return maxSuggestions;
-	}
+    public void setSuggestionMethod(FactorSelectorVo suggestionMethod) {
+        this.suggestionMethod = suggestionMethod;
+    }
 
-	public void setMaxSuggestions(int maxSuggestions) {
-		this.maxSuggestions = maxSuggestions;
-	}
+    public int getMaxSuggestions() {
+        return maxSuggestions;
+    }
 
-	public double getMinimalQuality() {
-		return minimalQuality;
-	}
+    public void setMaxSuggestions(int maxSuggestions) {
+        this.maxSuggestions = maxSuggestions;
+    }
 
-	public void setMinimalQuality(double minimalQuality) {
-		this.minimalQuality = minimalQuality;
-	}
+    public double getMinimalQuality() {
+        return minimalQuality;
+    }
 
-	public EvaluationIdVo getEvaluationIdVo() {
-		return evaluationIdVo;
-	}
+    public void setMinimalQuality(double minimalQuality) {
+        this.minimalQuality = minimalQuality;
+    }
 
-	public void setEvaluationIdVo(EvaluationIdVo evaluationIdVo) {
-		this.evaluationIdVo = evaluationIdVo;
-	}
+    public EvaluationIdVo getEvaluationIdVo() {
+        return evaluationIdVo;
+    }
+
+    public void setEvaluationIdVo(EvaluationIdVo evaluationIdVo) {
+        this.evaluationIdVo = evaluationIdVo;
+    }
 }

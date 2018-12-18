@@ -31,6 +31,7 @@ public class FactorsSelectionCfgConverter implements JsonConverter<FactorsSelect
 	public FactorsSelectionConfig toObject(String json) {
 		JsonObject asJsonObject = JSON_PARSER.parse(json).getAsJsonObject();
 		return new FactorsSelectionConfig(
+				asJsonObject.get("seriesId").getAsString(),
 				asJsonObject.get("seriesName").getAsString(),
 				ConverterUtils.INSTANCE.makeTenorVo(asJsonObject.getAsJsonObject("historicalInterval")),
 				FrequencyVo.valueOf(asJsonObject.get("frequency").getAsString()),

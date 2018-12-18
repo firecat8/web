@@ -13,6 +13,20 @@ define([
 ], function ($, template, seriesChart, ajaxModule, table, selectionConfComponent, windowManager) {
     var controller = {};
 
+    var deleteSeries = function (mfId) {
+        if (mfId && mfId !== '') {
+            ajaxModule.POST(
+                    "deleteSeries",
+                    mfId,
+                    function (msg) {
+                        console.log(msg);
+                    },
+                    function (error) {
+                        console.log("Error with series deletion." + mfId);
+                    }
+            );
+        }
+    };
     var colors = ["#FF0000", "#0FF000", "#FF00FF", "#FFFF00", "#DC7633"];
 
     var createChart = function (chartDom, targetSeries, scalableData, values) {
@@ -354,7 +368,30 @@ define([
                     });
                     $('.re-loading-spinner-background').hide();
                 });
-        var selectionConfig = selectionConfComponent.makeController($("#factorSelectionCfg", activeWindow)[0]);
+        var disableButtons = function (btnIds) {
+            for (var i = 0; i < btnIds.length; i++) {
+                var isExist = $(btnIds[i], activeWindow).attr('disabled');
+                if (typeof isExist === typeof undefined || isExist === false)
+                    $(btnIds[i], activeWindow).prop('disabled', true);
+            }
+        };
+        var detachObject = function (cellNames) {
+            for (var i = 0; i < cellNames.length; i++) {
+                myLayout.cells(cellNames[i]).detachObject();
+            }
+        };
+        var onUploadFileListener = function () {
+            var isExist = $('#loadFactorsButton', activeWindow).attr('disabled');
+            if (typeof isExist !== typeof undefined && isExist !== false)
+                $('#loadFactorsButton', activeWindow).removeAttr('disabled');
+            disableButtons([
+                "#suggestFactorsButton", '#clearUnselectedButton',
+                '#findFormulaButton', '#compareSeriesButton', '#calculateButton'
+            ]);
+            detachObject(['b', 'c', 'd']);
+        };
+        
+        var selectionConfig = selectionConfComponent.makeController($("#factorSelectionCfg", activeWindow)[0], onUploadFileListener);
         var series = [];
 
         attachGetFactorsListener("#loadFactorsButton", "esg/loadFactors", "#suggestFactorsButton");
@@ -479,6 +516,8 @@ define([
                         console.log(error);
                         $('.re-loading-spinner-background').hide();
                     });
+
+            deleteSeries(selectionConfig.getSeriesId());
         });
         return window.getId();
     };
