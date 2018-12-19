@@ -59,8 +59,8 @@ define([
                 var chartIcon = $(".chart-icon", wrapperDom)[0];
                 $(chartIcon).click(function () {
                     requirejs(['controller/SeeSeriesController'], function (seeSeriesController) {
-                        var win = windowManager.createWindow("Series ");
-                        var winId = seeSeriesController.makeController(win, factorSelectionCfg.seriesName, windowManager);
+                        var win = windowManager.createWindow("Series " + factorSelectionCfg.seriesName);
+                        var winId = seeSeriesController.makeController(win, factorSelectionCfg.seriesId, windowManager);
                         windowManager.showWindow(winId);
                     });
                 });
@@ -99,6 +99,9 @@ define([
                 uploadForm.attachEvent("onUploadFail", function (file, extra) {
                     $('.re-loading-spinner-background').hide();
                     dhtmlx.message({type: "errorMsg", text: extra, expire: 5000});
+                    uploadForm.clear();
+                    $(fileNameInput).val("");
+                    $(chartIcon).addClass("hidden");
                     factorSelectionCfg.seriesId = null;
                 });
 

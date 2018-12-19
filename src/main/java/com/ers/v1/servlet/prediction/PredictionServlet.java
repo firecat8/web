@@ -84,8 +84,10 @@ public class PredictionServlet extends HttpServlet {
                 }
                 marketFactorVo = adapter.getMarketFactorVo();
                 session.setAttribute(mfId, new MarketFactorInfoHolder(marketFactorInfoHolder.getFilename(), marketFactorVo,marketFactorInfoHolder.getQuotes()));
+            }else{
+                adapter.getMarketFactor(mfId);
             }
-
+            
             final String evalId = startPrediction(inputJsonObj.get("config").toString(), adapter);
             if (servletHelper.checkErrors(adapter, response)) {
                 return;

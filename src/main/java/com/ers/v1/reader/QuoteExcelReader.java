@@ -5,10 +5,12 @@ package com.ers.v1.reader;
 
 import com.ers.v1.entities.MapEntry;
 import com.ers.v1.parser.Parser;
+import static com.ers.v1.parser.Parser.SIMPLE_DATE_FORMAT;
 import com.ers.v1.reader.exceptions.UnableToParseDateException;
 import com.ers.v1.reader.exceptions.InvalidSheetFormatException;
 import com.ers.v1.parser.QuoteParser;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -105,7 +107,9 @@ public class QuoteExcelReader extends ExcelReader {
         Cell cell = row.getCell(dateColumnIndex);
         String format = cell.getCellStyle().getDataFormatString();
         if (!format.equals(Parser.SIMPLE_DATE_FORMAT)) {
-            quoteParser.applyDateFormat(format);
+            format = format.replace("D", "d");
+            format = format.replace("Y", "y");
+            quoteParser.setDateFormat(new SimpleDateFormat(format));
         }
     }
 

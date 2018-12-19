@@ -14,9 +14,9 @@ define([
             var createChart = function (quotes, activeWindow) {
                 var scalableData = [];
                 $.each(quotes, function (idx, quote) {
-                    if (dhtmlx.Date.str_to_date("%d/%m/%Y")(quote.date).getMonth() % 4 === 0) {
+                   // if (dhtmlx.Date.str_to_date("%d/%m/%Y")(quote.date).getMonth() % 4 === 0) {
                         scalableData.push(quote.value);
-                    }
+                    //}
                 });
 
                 var values = [{text: "quotes", color: "#0000FF"}];
@@ -49,7 +49,7 @@ define([
 				$('.re-loading-spinner-background').show();
 				window.setDimension(650, 400);
                     ajaxModule.GET(
-                            "loadSeries?mfId=" + encodeURIComponent(mfId),
+                            "loadQuotes?mfId=" + encodeURIComponent(mfId),
                             function (data) {
                                 if (data.quotes.length > 0) {
                                     dhtmlx.message({type: "successMsg", text: " Series loaded successfuly", expire: 5000});

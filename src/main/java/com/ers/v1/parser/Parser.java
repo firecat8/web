@@ -28,7 +28,7 @@ public abstract class Parser<ResultType> {
     private final static Logger LOGGER = Logger.getLogger(Parser.class.getCanonicalName());
     public final static String SIMPLE_DATE_FORMAT = "yyyy-MM-dd";
     protected final DataFormatter dataFormatter = new DataFormatter();
-    protected final SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
+    protected  SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
 
     protected Calendar toCalendar(final Cell cell) throws UnableToParseDateException {
         String stringDate = dataFormatter.formatCellValue(cell);
@@ -60,8 +60,8 @@ public abstract class Parser<ResultType> {
         }
     }
 
-    public void applyDateFormat(String format) {
-        dateFormat.applyPattern(format);
+    public void setDateFormat(SimpleDateFormat dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
     public DataFormatter getDataFormatter() {

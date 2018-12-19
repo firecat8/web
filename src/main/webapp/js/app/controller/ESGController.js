@@ -274,8 +274,8 @@ define([
         minCellWidth.push(chartsWidth);
         myLayout.cells("a").attachHTMLString(template);
         myLayout.cells("a").setWidth(700);
-        myLayout.cells("a").setHeight(400);
-        myLayout.cells("a").setMinHeight(400);
+        myLayout.cells("a").setHeight(460);
+        myLayout.cells("a").setMinHeight(460);
         // myLayout.cells("a").setMinWidth(700);
         myLayout.cells("b").setWidth(chartsWidth);
         // myLayout.cells("b").setMinWidth(chartsWidth);

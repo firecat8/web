@@ -5,7 +5,6 @@
  */
 package com.ers.v1.servlet;
 
-import com.ers.v1.adapter.PredictionAdapter;
 import com.ers.v1.adapter.SeriesAdapter;
 import com.ers.v1.entities.MarketFactorInfoHolder;
 import com.ers.v1.reader.QuoteExcelReader;
@@ -16,6 +15,8 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -75,6 +76,8 @@ public class QuotesUploaderServlet extends HttpServlet {
             }
 
             HttpSession session = request.getSession();
+            List arrayList = new ArrayList<>(reader.getContents().keySet());
+            //Collections.sort(list);
             session.setAttribute(marketFactorVo.getId(), new MarketFactorInfoHolder(filename, marketFactorVo, reader.getContents()));
 
             sendResponse(response, inputJsonObj, file, Boolean.TRUE, makeSuccessJsonObject(marketFactorVo.getId(), mfName));
