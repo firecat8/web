@@ -17,7 +17,20 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <ers.finlib.version>4.17</ers.finlib.version>
     </properties>
-    
+    <repositories>
+        <repository>
+            <id>com.ers.maven</id>
+            <name>EuroRisk Ltd Maven2 repository</name>
+            <url>http://maven.ers.bg:8080/nexus/content/groups/riskengine/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -52,8 +65,7 @@
         <dependency>
             <groupId>com.ers.riskengine</groupId>
             <artifactId>re-service-public-api</artifactId>
-            <version>2018.1.3.6-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>2018.1.3.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
@@ -120,25 +132,6 @@
                                 <goal>jspc</goal>
                             </goals>
                             <configuration>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                    <executions>
-                        <execution>
-                            <phase>initialize</phase>
-                            <goals>
-                                <goal>install-file</goal>
-                            </goals>
-                            <configuration>
-                                <groupId>com.ers.riskengine</groupId>
-                                <artifactId>re-service-public-api</artifactId>
-                                <version>2018.1.3.6-SNAPSHOT</version>
-                                <packaging>jar</packaging>
-                                <file>${basedir}/src/main/resources/re-service-public-api-2018.1.3.6-SNAPSHOT.jar</file>
                             </configuration>
                         </execution>
                     </executions>

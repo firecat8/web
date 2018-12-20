@@ -15,8 +15,8 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -76,9 +76,9 @@ public class QuotesUploaderServlet extends HttpServlet {
             }
 
             HttpSession session = request.getSession();
-            List arrayList = new ArrayList<>(reader.getContents().keySet());
-            //Collections.sort(list);
-            session.setAttribute(marketFactorVo.getId(), new MarketFactorInfoHolder(filename, marketFactorVo, reader.getContents()));
+            TreeMap<Calendar, Double> sorted = new TreeMap<>();
+            sorted.putAll(reader.getContents());
+            session.setAttribute(marketFactorVo.getId(), new MarketFactorInfoHolder(filename, marketFactorVo, sorted));
 
             sendResponse(response, inputJsonObj, file, Boolean.TRUE, makeSuccessJsonObject(marketFactorVo.getId(), mfName));
         } catch (InterruptedException ex) {

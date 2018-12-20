@@ -20,6 +20,7 @@ import java.util.logging.Level;
 
 import com.ers.re.service.pub.api.v1_1.messaging.InOnlyChannel;
 import com.ers.re.service.pub.api.v1_1.messaging.InOutChannel;
+import java.util.Calendar;
 
 /**
  *
@@ -29,6 +30,10 @@ public class PredictionAdapter extends CalculationAdapter {
 
     private final String ID = "CommodityINEA_" + UUID.randomUUID().toString();
     private PredictionResultVo results;
+
+    public void setMarketFactorVo(InstrumentMarketFactorVo marketFactorVo) {
+        this.marketFactorVo = marketFactorVo;
+    }
 
     public PredictionResultVo getResults() {
         return results;
@@ -45,10 +50,12 @@ public class PredictionAdapter extends CalculationAdapter {
         saveMarketFactor(ID);
     }
 
-    public EvaluationIdVo createEvaluation(PredictionConfigVo predictionConfig) throws InterruptedException {
-        PredictionRequestVo makePredictionRequest = makePredictionRequest(predictionConfig, marketFactorVo.getInstrumentId());
+    public EvaluationIdVo createEvaluation(PredictionConfigVo predictionConfig,Calendar lastDate) throws InterruptedException {
+        PredictionRequestVo predictionRequest = makePredictionRequest(predictionConfig, marketFactorVo.getInstrumentId());
+        predictionRequest.getEvalCtx().setMarketDate(lastDate);
+        predictionRequest.getEvalCtx().setEvaluationDate(lastDate);
         final CountDownLatch createEvalLatch = new CountDownLatch(1);
-        registry.getFundPricePredictionEndpoint().createEvaluation().invoke(makePredictionRequest, createEvaluationResponseListener(createEvalLatch));
+        registry.getFundPricePredictionEndpoint().createEvaluation().invoke(predictionRequest, createEvaluationResponseListener(createEvalLatch));
         createEvalLatch.await();
         return evalId;
     }

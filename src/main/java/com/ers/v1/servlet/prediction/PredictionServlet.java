@@ -32,6 +32,8 @@ import javax.servlet.annotation.WebServlet;
 import com.ers.v1.utils.ConverterUtils;
 import com.eurorisksystems.riskengine.ws.v1_1.vo.portfolio.evaluation.EvaluationIdVo;
 import com.google.gson.JsonSyntaxException;
+import java.util.Calendar;
+import java.util.TreeMap;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -77,18 +79,19 @@ public class PredictionServlet extends HttpServlet {
                 response.sendError(404, "Not found series!");
                 return;
             }
+            TreeMap<Calendar, Double> quotes = (TreeMap)marketFactorInfoHolder.getQuotes();
             if ("dummy".equals(underlyingId) || !underlyingId.contains("CommodityINEA_")) {
                 adapter.createInstrument(mfId);
                 if (servletHelper.checkErrors(adapter, response)) {
                     return;
                 }
                 marketFactorVo = adapter.getMarketFactorVo();
-                session.setAttribute(mfId, new MarketFactorInfoHolder(marketFactorInfoHolder.getFilename(), marketFactorVo,marketFactorInfoHolder.getQuotes()));
+                session.setAttribute(mfId, new MarketFactorInfoHolder(marketFactorInfoHolder.getFilename(), marketFactorVo,quotes));
             }else{
-                adapter.getMarketFactor(mfId);
+                adapter.setMarketFactorVo(marketFactorVo);
             }
             
-            final String evalId = startPrediction(inputJsonObj.get("config").toString(), adapter);
+            final String evalId = startPrediction(inputJsonObj.get("config").toString(), adapter,quotes.lastKey());
             if (servletHelper.checkErrors(adapter, response)) {
                 return;
             }
@@ -121,9 +124,9 @@ public class PredictionServlet extends HttpServlet {
         } while (status.getState() == StateVo.WORKING);
     }
 
-    private String startPrediction(String config, PredictionAdapter adapter) throws InterruptedException {
-        PredictionConfigVo convertToPredictionConfigVo = PredictionConfigVoConverter.INSTANCE.toObject(config);
-        EvaluationIdVo evalId = adapter.createEvaluation(convertToPredictionConfigVo);
+    private String startPrediction(String config, PredictionAdapter adapter,Calendar lastDate) throws InterruptedException {
+        PredictionConfigVo predictionConfigVo = PredictionConfigVoConverter.INSTANCE.toObject(config);
+        EvaluationIdVo evalId = adapter.createEvaluation(predictionConfigVo,lastDate);
         checkStatus(adapter);
         adapter.predictFundPrice();
         checkStatus(adapter);
