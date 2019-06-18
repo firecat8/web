@@ -111,22 +111,22 @@ public class QuoteExcelReader extends ExcelReader {
         }
         Cell cell = row.getCell(dateColumnIndex);
         if (!DateUtil.isADateFormat(cell.getCellStyle().getDataFormat(), cell.getCellStyle().getDataFormatString())) {
-            throwException("Not valid date format", rowNum, cell);
+            throwException("Not valid date format", rowNum, cell, dateColumnIndex);
         }
         try {
             double value = cell.getNumericCellValue();
             if (!DateUtil.isValidExcelDate(value)) {
-                throwException("Not valid excel date format", rowNum, cell);
+                throwException("Not valid excel date format", rowNum, cell, dateColumnIndex);
             }
 
         } catch (Exception ex) {
-            throwException("Not valid excel date format", rowNum, cell);
+            throwException("Not valid excel date format", rowNum, cell, dateColumnIndex);
         }
     }
 
-    private void throwException(String msg, int rowNum, Cell cell) {
+    private void throwException(String msg, int rowNum, Cell cell, int columnIndex) {
         throw new IllegalArgumentException(msg + " on row "
-                + (rowNum + 1) + " and column " + (dateColumnIndex + 1)
+                + (rowNum + 1) + " and column " + (columnIndex + 1)
                 + ". Format " + cell.getCellStyle().getDataFormatString()
                 + ". Value " + quoteParser.getDataFormatter().formatCellValue(cell)
         );
@@ -140,13 +140,13 @@ public class QuoteExcelReader extends ExcelReader {
         Cell cell = row.getCell(valueColumnIndex);
         if (cell.getCellType() != CellFormatType.GENERAL.ordinal()
                 && cell.getCellType() != CellFormatType.NUMBER.ordinal()) {
-            throwException("Not valid value format", rowNum, cell);
+            throwException("Not valid value format", rowNum, cell, valueColumnIndex);
         }
         try {
             double value = cell.getNumericCellValue();
 
         } catch (Exception ex) {
-            throwException("Not valid value format", rowNum, cell);
+            throwException("Not valid value format", rowNum, cell, valueColumnIndex);
         }
     }
 }
