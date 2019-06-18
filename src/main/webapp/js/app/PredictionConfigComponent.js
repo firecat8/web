@@ -125,7 +125,7 @@ define([
                     uploadForm.attachEvent("onUploadFail", function (file, extra) {
                         $('.re-loading-spinner-background').hide();
                         dhtmlx.message({type: "errorMsg", text: extra, expire: 5000});
-                        uploadForm.clear();
+                        uploadForm.setItemValue("quotesUpload");
                         $(fileNameInput).val("");
                         $(chartIcon).addClass("hidden");
                         predictConfig.mfId = null;

@@ -28,11 +28,13 @@ public abstract class Parser<ResultType> {
     private final static Logger LOGGER = Logger.getLogger(Parser.class.getCanonicalName());
     public final static String SIMPLE_DATE_FORMAT = "yyyy-MM-dd";
     protected final DataFormatter dataFormatter = new DataFormatter();
-    protected  SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
+    protected SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
 
     protected Calendar toCalendar(final Cell cell) throws UnableToParseDateException {
-        String stringDate = dataFormatter.formatCellValue(cell);
-        Date date = toDate(stringDate);
+//       String stringDate = dataFormatter.formatCellValue(cell);
+//        Date date = toDate(stringDate);
+        Date date = cell.getDateCellValue();
+       date = toDate(dateFormat.format(date));
         Calendar calendar = new GregorianCalendar();
         calendar.setTimeInMillis(date.getTime());
         return calendar;

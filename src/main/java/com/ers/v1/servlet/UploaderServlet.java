@@ -74,8 +74,7 @@ public class UploaderServlet extends HttpServlet {
             inputJsonObj.addProperty("name", filename);
             sendResponse(response, parameter, inputJsonObj);
 
-        } catch (InvalidSheetFormatException | UnableToParseDateException
-                | InvalidFileExtensionException | InvalidUploadRequestException exception) {
+        } catch (InvalidFileExtensionException | InvalidSheetFormatException | UnableToParseDateException | InvalidUploadRequestException | IOException | ServletException exception) {
             LOGGER.log(Level.SEVERE, exception.getMessage());
             inputJsonObj.addProperty("state", Boolean.FALSE);
             inputJsonObj.addProperty("extra", exception.getMessage());

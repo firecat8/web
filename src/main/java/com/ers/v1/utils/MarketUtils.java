@@ -91,7 +91,8 @@ public class MarketUtils {
         vo.setStockIndexId(null);
         vo.setSiLinkModel(SiLinkModelVo.BASE_FACTOR);
         vo.setOtc(false);
-        vo.setQuotedUnits(0.2);
+        vo.setQuotedUnits(1.0);
+        //vo.setQuotedUnits(0.2);
         vo.setAutomaticWindowSize(Boolean.TRUE);
         vo.setHistoricalPriceFrequency(FrequencyVo.MONTHLY);
         vo.setHistoricalInterval(new TenorVo(4, 0, 0));

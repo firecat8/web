@@ -5,7 +5,6 @@ package com.ers.v1.reader;
 
 import com.ers.v1.entities.MapEntry;
 import com.ers.v1.parser.Parser;
-import static com.ers.v1.parser.Parser.SIMPLE_DATE_FORMAT;
 import com.ers.v1.reader.exceptions.UnableToParseDateException;
 import com.ers.v1.reader.exceptions.InvalidSheetFormatException;
 import com.ers.v1.parser.QuoteParser;
@@ -13,11 +12,11 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import javafx.util.Pair;
+import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -56,18 +55,21 @@ public class QuoteExcelReader extends ExcelReader {
 
     @Override
     protected void checkSheetValidity(final Sheet sheet) {
-        Row r = sheet.getRow(0);
-        hasHeaders = checkForHeaders(r);
+        Row firstRow = sheet.getRow(0);
+        if (firstRow == null || firstRow.getPhysicalNumberOfCells() == 0) {
+            throw new InvalidSheetFormatException();
+        }
+        hasHeaders = checkForHeaders(firstRow);
         if (!hasHeaders) {
             dateColumnIndex = 0;
             valueColumnIndex = 1;
-        } else {
-            checkDateFormat(sheet.getRow(1));
         }
         sheet.forEach((Row row) -> {
             if (row.getPhysicalNumberOfCells() < VALID_ROW_CELL_COUNT) {
                 throw new InvalidSheetFormatException();
             }
+            checkDateFormat(row, row.getRowNum());
+            checkValueFormat(row, row.getRowNum());
         });
     }
 
@@ -103,14 +105,48 @@ public class QuoteExcelReader extends ExcelReader {
         return false;
     }
 
-    private void checkDateFormat(Row row) {
+    private void checkDateFormat(Row row, int rowNum) {
+        if (rowNum == 0 && hasHeaders) {
+            return;
+        }
         Cell cell = row.getCell(dateColumnIndex);
-        String format = cell.getCellStyle().getDataFormatString();
-        if (!format.equals(Parser.SIMPLE_DATE_FORMAT)) {
-            format = format.replace("D", "d");
-            format = format.replace("Y", "y");
-            quoteParser.setDateFormat(new SimpleDateFormat(format));
+        if (!DateUtil.isADateFormat(cell.getCellStyle().getDataFormat(), cell.getCellStyle().getDataFormatString())) {
+            throwException("Not valid date format", rowNum, cell);
+        }
+        try {
+            double value = cell.getNumericCellValue();
+            if (!DateUtil.isValidExcelDate(value)) {
+                throwException("Not valid excel date format", rowNum, cell);
+            }
+
+        } catch (Exception ex) {
+            throwException("Not valid excel date format", rowNum, cell);
         }
     }
 
+    private void throwException(String msg, int rowNum, Cell cell) {
+        throw new IllegalArgumentException(msg + " on row "
+                + (rowNum + 1) + " and column " + (dateColumnIndex + 1)
+                + ". Format " + cell.getCellStyle().getDataFormatString()
+                + ". Value " + quoteParser.getDataFormatter().formatCellValue(cell)
+        );
+
+    }
+
+    private void checkValueFormat(Row row, int rowNum) {
+        if (rowNum == 0 && hasHeaders) {
+            return;
+        }
+        Cell cell = row.getCell(valueColumnIndex);
+        if (cell.getCellType() != CellFormatType.GENERAL.ordinal()
+                && cell.getCellType() != CellFormatType.NUMBER.ordinal()) {
+            throwException("Not valid value format", rowNum, cell);
+        }
+        try {
+            double value = cell.getNumericCellValue();
+
+        } catch (Exception ex) {
+            throwException("Not valid value format", rowNum, cell);
+        }
+    }
 }

@@ -9,6 +9,8 @@ import com.ers.v1.adapter.SeriesAdapter;
 import com.ers.v1.entities.MarketFactorInfoHolder;
 import com.ers.v1.reader.QuoteExcelReader;
 import com.ers.v1.reader.exceptions.InvalidFileExtensionException;
+import com.ers.v1.reader.exceptions.InvalidSheetFormatException;
+import com.ers.v1.reader.exceptions.UnableToParseDateException;
 import com.ers.v1.servlet.exceptions.InvalidUploadRequestException;
 import com.eurorisksystems.riskengine.ws.v1_1.vo.market.factor.InstrumentMarketFactorVo;
 import com.google.gson.JsonObject;
@@ -81,7 +83,7 @@ public class QuotesUploaderServlet extends HttpServlet {
             session.setAttribute(marketFactorVo.getId(), new MarketFactorInfoHolder(filename, marketFactorVo, sorted));
 
             sendResponse(response, inputJsonObj, file, Boolean.TRUE, makeSuccessJsonObject(marketFactorVo.getId(), mfName));
-        } catch (InterruptedException ex) {
+        } catch (IllegalArgumentException|InterruptedException | InvalidSheetFormatException| UnableToParseDateException  ex) {
             Logger.getLogger(QuotesUploaderServlet.class.getName()).log(Level.SEVERE, null, ex);
             inputJsonObj.addProperty("state", Boolean.FALSE);
             inputJsonObj.addProperty("extra", ex.getMessage());
