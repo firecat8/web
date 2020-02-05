@@ -6,7 +6,7 @@ define(["app/WindowManager", "app/OpenWindowsComponent"], function (window, open
         var mainMenu = new dhtmlXMenuObject({
             parent: "menu"}
         );
-        mainMenu.addNewSibling(null, "ESG", "ESG", false);
+       // mainMenu.addNewSibling(null, "ESG", "ESG", false);
         mainMenu.addNewSibling(null, "Prediction", "Prediction", false);
        // mainMenu.addNewSibling(null, "SeeSeries", "See series", false);
        // mainMenu.addNewSibling(null, "Upload", "Upload", false);

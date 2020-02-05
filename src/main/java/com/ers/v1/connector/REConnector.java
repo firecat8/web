@@ -28,7 +28,7 @@ public class REConnector {
     private ConnectionFactory cf = null;
     private EndpointRegistry registry = null;
     private Properties config = null;
-    private final String clientID = "INEA_PUBLIC";
+    private final String clientID = "INEA_PUBLIC_2";
 
     public final static REConnector INSTANCE = new REConnector();
 
